@@ -27,7 +27,9 @@ class Game:
         self.dir_sound= os.path.join(self.dir ,'source/sounds')
 
     def star(self):
+        self.menu()
         self.new()
+        
 
     def new(self):
         self.score= 0
@@ -102,6 +104,12 @@ class Game:
             self.player.jump()
         if key[pygame.K_r] and not self.playing:
             self.new()
+        if key[pygame.K_x] and not self.playing:
+            pygame.QUIT
+            sys.exit()
+        if key[pygame.K_m] and not self.playing:
+            pass
+
             
     def draw (self):
         self.surface.fill(BLUE)
@@ -128,9 +136,7 @@ class Game:
             coin = self.player.collide_with(self.coins)
             if coin:
                 self.score +=1
-                coin.kill()
-
-                
+                coin.kill()  
 
                 sound = pygame.mixer.Sound(os.path.join(self.dir_sound,'coins.wav'))
                 sound.play()
@@ -180,3 +186,27 @@ class Game:
         rect.midtop= (pos_x, pos_y)
         
         self.surface.blit(text,rect)
+
+    def menu(self):
+        self.surface.fill(GREEN2)
+        self.display_text('presiona una tecla para comenzar',36,BLACK,WITDH//2,HEIGHT//2)
+
+        pygame.display.flip()
+        self.wait()
+
+        pygame.display.flip()
+
+    def wait(self):
+        wait= True
+
+        while wait:
+            self.clock.tick(FPS)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    wait = False
+                    self.running =False
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYUP:
+                    wait= False
