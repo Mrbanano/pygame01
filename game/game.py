@@ -1,5 +1,6 @@
 import sys
 import pygame
+import random
 
 from .config import *
 from .platform import Platform
@@ -26,12 +27,28 @@ class Game:
         self.platform=Platform()
         self.player= Player(100,self.platform.rect.top-200)
 
-        self.wall= Wall(500,self.platform.rect.top)
+        
         self.sprites= pygame.sprite.Group()
+        self.walls= pygame.sprite.Group()
 
         self.sprites.add(self.platform)
         self.sprites.add(self.player)
-        self.sprites.add(self.wall)
+
+        self.generate_walls()
+    
+    def generate_walls(self):
+
+        last_position = WITDH + 100
+
+        if not len(self.walls)>0:
+
+            for w in range(0,MAX_WALLS):
+                left = random.randrange(last_position+200, last_position+400)
+                wall = Wall(left,self.platform.rect.top)
+                last_position = wall.rect.right
+
+                self.sprites.add(wall)
+                self.walls.add(wall)
 
 
     def run (self):
