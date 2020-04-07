@@ -2,6 +2,7 @@ import sys
 import pygame
 
 from .config import *
+from .platform import Platform
 
 class Game:
     def __init__(self):
@@ -16,7 +17,15 @@ class Game:
         self.new()
 
     def new(self):
+        self.generate_elements()
         self.run()
+
+    def generate_elements(self):
+        self.platform=Platform()
+
+        self.sprites= pygame.sprite.Group()
+        self.sprites.add(self.platform)
+
 
     def run (self):
         
@@ -32,7 +41,9 @@ class Game:
                 pygame.QUIT
                 sys.exit()
     def draw (self):
-        self.surface.fill(BLACK)
+        self.surface.fill(BLUE)
+        
+        self.sprites.draw(self.surface)
     def update (self):
         pygame.display.flip()
     def stop(self):
