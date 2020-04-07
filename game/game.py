@@ -11,11 +11,9 @@ class Game:
         self.running = True 
 
     def star(self):
-        
         self.new()
 
     def new(self):
-        
         self.run()
 
     def run (self):
