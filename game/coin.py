@@ -20,3 +20,4 @@ class Coin(pygame.sprite.Sprite):
 
     def stop (self):
         self.vel_x = 0 
+    

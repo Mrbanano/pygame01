@@ -21,7 +21,7 @@ class Game:
 
         self.clock =pygame.time.Clock()
 
-        self.font =pygame.font.match_font(FONT)
+        self.font=pygame.font.match_font(FONT)
 
         self.dir =os.path.dirname(__file__)
         self.dir_sound= os.path.join(self.dir ,'source/sounds')
@@ -30,6 +30,8 @@ class Game:
         self.new()
 
     def new(self):
+        self.score= 0
+        self.level=0
         self.generate_elements()
         self.run()
 
@@ -46,7 +48,7 @@ class Game:
         self.sprites.add(self.player)
 
         self.generate_walls()
-        self.generate_coins()
+        
     
     def generate_walls(self):
 
@@ -61,6 +63,9 @@ class Game:
 
                 self.sprites.add(wall)
                 self.walls.add(wall)
+
+            self.level += 1
+            self.generate_coins()
 
     def generate_coins(self):
         last_position = WITDH + 100
@@ -96,8 +101,11 @@ class Game:
             self.player.jump()
     def draw (self):
         self.surface.fill(BLUE)
-        
+
+        self.draw_text()
+
         self.sprites.draw(self.surface)
+    
     def update (self):
         if self.playing:
             pygame.display.flip()
@@ -107,13 +115,27 @@ class Game:
                 if self.player.collide_bottom(wall):
                     self.player.skid(wall)
                 else:
+                    sound = pygame.mixer.Sound(os.path.join(self.dir_sound,'lose.wav'))
+                    sound.play()
                     self.stop()
+
+            coin = self.player.collide_with(self.coins)
+            if coin:
+                self.score +=1
+                coin.kill()
+
+                
+
+                sound = pygame.mixer.Sound(os.path.join(self.dir_sound,'coins.wav'))
+                sound.play()
 
             self.sprites.update()
 
             self.player.validate_platform(self.platform)
 
             self.update_elements(self.walls)
+            self.update_elements(self.coins)
+
             self.generate_walls()
          
     def update_elements(self,elements):
@@ -130,3 +152,20 @@ class Game:
     def stop_elements(self,elements):
         for element in elements:
             element.stop()
+
+    def score_format(self):
+        return 'Score: {}'.format(self.score)
+
+    def level_format(self):
+        return 'Level: {}'.format(self.level)
+    def draw_text (self):
+        self.display_text(self.score_format(),30, WHITE, WITDH//2,30)
+        self.display_text(self.level_format(),30, WHITE, WITDH//8,30)
+
+    def display_text(self,text,size,color,pos_x,pos_y):
+        font = pygame.font.Font(self.font,size)
+        text= font.render(text,True, color )
+        rect = text.get_rect()
+        rect.midtop= (pos_x, pos_y)
+        
+        self.surface.blit(text,rect)
