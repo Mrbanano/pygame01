@@ -101,7 +101,7 @@ class Game:
                 sys.exit()
         
         key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE]:
+        if key[pygame.K_SPACE] or key[pygame.K_UP] or key[pygame.K_w]:
             self.player.jump()
         if key[pygame.K_r] and not self.playing:
             self.new()
@@ -118,7 +118,6 @@ class Game:
     def update (self):
         if self.playing:
 
-
             wall = self.player.collide_with(self.walls)
             if wall:
                 if self.player.collide_bottom(wall):
@@ -132,8 +131,6 @@ class Game:
             if coin:
                 self.score +=1
                 coin.kill()
-
-                
 
                 sound = pygame.mixer.Sound(os.path.join(self.dir_sound,'coins.wav'))
                 sound.play()
