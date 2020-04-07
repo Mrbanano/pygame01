@@ -1,0 +1,4 @@
+WITDH = 800
+HEIGHT=400
+
+TITLE = 'Super Game!!'

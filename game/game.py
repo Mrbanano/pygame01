@@ -1,12 +1,14 @@
 import sys
 import pygame
 
+from .config import *
+
 class Game:
     def __init__(self):
         pygame.init()
 
-        self.surface = pygame.display.set_mode( (800,400) )
-        pygame.display.set_caption('SuperGame!!')
+        self.surface = pygame.display.set_mode( (WITDH,HEIGHT) )
+        pygame.display.set_caption(TITLE)
 
         self.running = True 
 
