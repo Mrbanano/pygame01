@@ -3,4 +3,6 @@ HEIGHT=400
 
 TITLE = 'Super Game!!'
 
+BLUE=(15, 140, 159)
 BLACK=(0,0,0)
+GREEN=(45, 219, 115)
