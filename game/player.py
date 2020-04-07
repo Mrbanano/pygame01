@@ -27,8 +27,9 @@ class Player (pygame.sprite.Sprite):
            self.can_jump =True
 
     def jump(self):
-        self.vel_y= -23
-        self.can_jump = False
+        if self.can_jump:
+            self.vel_y= -20
+            self.can_jump = False
 
     def update_pos(self):
         self.vel_y += PLAYER_GRAV
