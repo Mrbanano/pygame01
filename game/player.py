@@ -17,15 +17,22 @@ class Player (pygame.sprite.Sprite):
         self.pos_y= self.rect.bottom
         self.vel_y= 0
 
+        self.can_jump = False
+
     def validate_platform(self,platform):
        result = pygame.sprite.collide_rect(self, platform)
        if result:
            self.vel_y = 0
            self.pos_y = platform.rect.top
+           self.can_jump =True
+
+    def jump(self):
+        self.vel_y= -23
+        self.can_jump = False
 
     def update_pos(self):
         self.vel_y += PLAYER_GRAV
-        self.pos_y += self.vel_y + 0.5 * PLAYER_GRAV
+        self.pos_y += (self.vel_y + 0.5 )* PLAYER_GRAV
 
     def update(self):
         self.update_pos()

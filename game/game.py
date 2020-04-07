@@ -26,6 +26,7 @@ class Game:
         self.player= Player(100,self.platform.rect.top-200)
 
         self.sprites= pygame.sprite.Group()
+        
         self.sprites.add(self.platform)
         self.sprites.add(self.player)
 
@@ -43,6 +44,10 @@ class Game:
                 self.running= False
                 pygame.QUIT
                 sys.exit()
+        
+        key = pygame.key.get_pressed()
+        if key[pygame.K_SPACE]:
+            self.player.jump()
     def draw (self):
         self.surface.fill(BLUE)
         
