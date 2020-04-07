@@ -71,7 +71,7 @@ class Game:
         last_position = WITDH + 100
 
         for c in range (0,MAX_COINS):
-             pos_x= random.randrange(last_position+180, last_position+300)
+             pos_x= random.randrange(last_position+130, last_position+300)
 
              coin=Coin(pos_x,150)
 
