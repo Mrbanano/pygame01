@@ -17,7 +17,7 @@ class Game:
         pygame.display.set_caption(TITLE)
 
         self.running = True 
-        self.playing = True
+        
 
         self.clock =pygame.time.Clock()
 
@@ -32,6 +32,7 @@ class Game:
     def new(self):
         self.score= 0
         self.level=0
+        self.playing= True
         self.generate_elements()
         self.run()
 
@@ -72,7 +73,6 @@ class Game:
 
         for c in range (0,MAX_COINS):
              pos_x= random.randrange(last_position+130, last_position+300)
-
              coin=Coin(pos_x,150)
 
              last_position= coin.rect.right
@@ -86,8 +86,9 @@ class Game:
         while self.running:
             self.clock.tick(FPS)
             self.event()
-            self.draw()
             self.update()
+            self.draw()
+            
 
     def event(self):
         for event in pygame.event.get():
@@ -99,16 +100,21 @@ class Game:
         key = pygame.key.get_pressed()
         if key[pygame.K_SPACE]:
             self.player.jump()
+        if key[pygame.K_r] and not self.playing:
+            self.new()
+            
     def draw (self):
         self.surface.fill(BLUE)
 
         self.draw_text()
 
         self.sprites.draw(self.surface)
+
+        pygame.display.flip()
     
     def update (self):
         if self.playing:
-            pygame.display.flip()
+
 
             wall = self.player.collide_with(self.walls)
             if wall:
@@ -161,6 +167,11 @@ class Game:
     def draw_text (self):
         self.display_text(self.score_format(),30, WHITE, WITDH//2,30)
         self.display_text(self.level_format(),30, WHITE, WITDH//8,30)
+
+        if not self.playing:
+            self.display_text('Game Over ',60, RED, WITDH//2,HEIGHT//2)
+            self.display_text('R to Restar ',15, RED, WITDH//2,HEIGHT//2+90)
+            
 
     def display_text(self,text,size,color,pos_x,pos_y):
         font = pygame.font.Font(self.font,size)
