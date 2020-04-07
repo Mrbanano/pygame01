@@ -27,6 +27,7 @@ class Game:
         self.dir_sound= os.path.join(self.dir,'source/sounds')
         self.dir_img= os.path.join(self.dir,'source/sprites')
 
+
     def star(self):
         self.new()
 
@@ -37,6 +38,9 @@ class Game:
 
         self.background = pygame.image.load(os.path.join(self.dir_img,'bg.png'))
         self.platform_bg = pygame.image.load(os.path.join(self.dir_img,'platform.jpg'))
+
+        sound = pygame.mixer.Sound(os.path.join(self.dir_sound,'soundtrack.wav'))
+        sound.play()
         
         self.generate_elements()
         self.run()
