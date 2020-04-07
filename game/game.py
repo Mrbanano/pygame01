@@ -16,6 +16,8 @@ class Game:
 
         self.running = True 
 
+        self.clock =pygame.time.Clock()
+
     def star(self):
         self.new()
 
@@ -38,7 +40,7 @@ class Game:
     
     def generate_walls(self):
 
-        last_position = WITDH + 100
+        last_position = WITDH + 10
 
         if not len(self.walls)>0:
 
@@ -54,6 +56,7 @@ class Game:
     def run (self):
         
         while self.running:
+            self.clock.tick(FPS)
             self.event()
             self.draw()
             self.update()
@@ -78,6 +81,11 @@ class Game:
         self.sprites.update()
 
         self.player.validate_platform(self.platform)
+
+        wall = self.player.collide_with(self.walls)
+        if wall:
+            self.stop()
+            print('colision')
 
     def stop(self):
         pass

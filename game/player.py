@@ -18,6 +18,12 @@ class Player (pygame.sprite.Sprite):
         self.vel_y= 0
 
         self.can_jump = False
+    
+    def collide_with(self,sprites):
+        objects = pygame.sprite.spritecollide(self,sprites, False)
+        if objects:
+            return objects[0]
+
 
     def validate_platform(self,platform):
        result = pygame.sprite.collide_rect(self, platform)
