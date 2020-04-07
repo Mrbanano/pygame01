@@ -35,7 +35,7 @@ class Game:
         self.level=0
         self.playing= True
 
-        self.background = pygame.image.load(os.path.join(self.dir_img,'bg.jpg'))
+        self.background = pygame.image.load(os.path.join(self.dir_img,'bg.png'))
         self.platform_bg = pygame.image.load(os.path.join(self.dir_img,'platform.jpg'))
         
         self.generate_elements()
@@ -160,18 +160,18 @@ class Game:
             element.stop()
 
     def score_format(self):
-        return 'Score: {}'.format(self.score)
+        return '{}'.format(self.score)
 
     def level_format(self):
-        return 'Level: {}'.format(self.level)
+        return '{}'.format(self.level)
     
     def draw_text (self):
-        self.display_text(self.score_format(),30, WHITE, WITDH//2,30)
-        self.display_text(self.level_format(),30, WHITE, WITDH//8,30)
+        self.display_text(self.score_format(),30, CUSTOM2, 600,38)
+        self.display_text(self.level_format(),30, CUSTOM1, 200,38)
 
         if not self.playing:
             self.display_text('Game Over ',60, RED, WITDH//2,HEIGHT//2)
-            self.display_text('R to Restar ',15, RED, WITDH//2,HEIGHT//2+90)
+            self.display_text('R to Restar ',30, RED, WITDH//2,HEIGHT//2+40)
             
     def display_text(self,text,size,color,pos_x,pos_y):
         font = pygame.font.Font(self.font,size)

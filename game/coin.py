@@ -7,7 +7,7 @@ class Coin(pygame.sprite.Sprite):
     def __init__(self, pos_x ,pos_y,dir_img):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load( os.path.join(dir_img,'coin.jpg'))
+        self.image = pygame.image.load( os.path.join(dir_img,'coin.png'))
          
         self.rect = self.image.get_rect()
         self.rect.x= pos_x

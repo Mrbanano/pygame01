@@ -8,7 +8,7 @@ class Wall(pygame.sprite.Sprite):
 
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load( os.path.join(dir_img,'wall.jpg'))
+        self.image = pygame.image.load( os.path.join(dir_img,'wall.png'))
 
         self.rect = self.image.get_rect()
         self.rect.left = left
