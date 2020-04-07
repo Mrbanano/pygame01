@@ -1,14 +1,14 @@
+import os 
 import pygame
 from .config import*
 
 class Coin(pygame.sprite.Sprite):
 
-    def __init__(self, pos_x ,pos_y):
+    def __init__(self, pos_x ,pos_y,dir_img):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.Surface( (40,40) )
-        self.image.fill(YELLOW)
-
+        self.image = pygame.image.load( os.path.join(dir_img,'coin.jpg'))
+         
         self.rect = self.image.get_rect()
         self.rect.x= pos_x
         self.rect.y= pos_y

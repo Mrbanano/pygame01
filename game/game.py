@@ -24,7 +24,8 @@ class Game:
         self.font=pygame.font.match_font(FONT)
 
         self.dir =os.path.dirname(__file__)
-        self.dir_sound= os.path.join(self.dir ,'source/sounds')
+        self.dir_sound= os.path.join(self.dir,'source/sounds')
+        self.dir_img= os.path.join(self.dir,'source/sprites')
 
     def star(self):
         self.new()
@@ -33,12 +34,17 @@ class Game:
         self.score= 0
         self.level=0
         self.playing= True
+
+        self.background = pygame.image.load(os.path.join(self.dir_img,'bg.jpg'))
+        self.platform_bg = pygame.image.load(os.path.join(self.dir_img,'platform.jpg'))
+        
         self.generate_elements()
         self.run()
 
     def generate_elements(self):
         self.platform=Platform()
-        self.player= Player(100,self.platform.rect.top-200)
+
+        self.player= Player(100,self.platform.rect.top-200,self.dir_img)
 
         
         self.sprites= pygame.sprite.Group()
@@ -50,7 +56,6 @@ class Game:
 
         self.generate_walls()
         
-    
     def generate_walls(self):
 
         last_position = WITDH + 100
@@ -59,7 +64,7 @@ class Game:
 
             for w in range(0,MAX_WALLS):
                 left = random.randrange(last_position+200, last_position+400)
-                wall = Wall(left,self.platform.rect.top)
+                wall = Wall(left,self.platform.rect.top,self.dir_img)
                 last_position = wall.rect.right
 
                 self.sprites.add(wall)
@@ -73,13 +78,12 @@ class Game:
 
         for c in range (0,MAX_COINS):
              pos_x= random.randrange(last_position+130, last_position+300)
-             coin=Coin(pos_x,150)
+             coin=Coin(pos_x,150,self.dir_img)
 
              last_position= coin.rect.right
 
              self.sprites.add(coin)
              self.coins.add(coin)
-
 
     def run (self):
         
@@ -89,7 +93,6 @@ class Game:
             self.update()
             self.draw()
             
-
     def event(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -104,8 +107,8 @@ class Game:
             self.new()
             
     def draw (self):
-        self.surface.fill(BLUE)
-
+        self.surface.blit(self.background,(0,0))
+        self.platform.image.blit(self.platform_bg,(0,0))
         self.draw_text()
 
         self.sprites.draw(self.surface)
@@ -164,6 +167,7 @@ class Game:
 
     def level_format(self):
         return 'Level: {}'.format(self.level)
+    
     def draw_text (self):
         self.display_text(self.score_format(),30, WHITE, WITDH//2,30)
         self.display_text(self.level_format(),30, WHITE, WITDH//8,30)
@@ -172,7 +176,6 @@ class Game:
             self.display_text('Game Over ',60, RED, WITDH//2,HEIGHT//2)
             self.display_text('R to Restar ',15, RED, WITDH//2,HEIGHT//2+90)
             
-
     def display_text(self,text,size,color,pos_x,pos_y):
         font = pygame.font.Font(self.font,size)
         text= font.render(text,True, color )
