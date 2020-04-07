@@ -32,7 +32,7 @@ class Game:
                 pygame.QUIT
                 sys.exit()
     def draw (self):
-        pass
+        self.surface.fill(BLACK)
     def update (self):
         pygame.display.flip()
     def stop(self):

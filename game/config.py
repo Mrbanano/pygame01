@@ -2,3 +2,5 @@ WITDH = 800
 HEIGHT=400
 
 TITLE = 'Super Game!!'
+
+BLACK=(0,0,0)
