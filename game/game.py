@@ -23,7 +23,7 @@ class Game:
 
     def generate_elements(self):
         self.platform=Platform()
-        self.player= Player()
+        self.player= Player(100,self.platform.rect.top-200)
 
         self.sprites= pygame.sprite.Group()
         self.sprites.add(self.platform)
@@ -49,5 +49,10 @@ class Game:
         self.sprites.draw(self.surface)
     def update (self):
         pygame.display.flip()
+
+        self.sprites.update()
+
+        self.player.validate_platform(self.platform)
+
     def stop(self):
         pass
