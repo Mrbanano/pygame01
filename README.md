@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://github.com/Mrbanano"><img src="https://i.postimg.cc/V66YL3cS/portada.jpg" height="300"></a>
+<a href="https://github.com/Mrbanano"><img src="https://i.postimg.cc/V66YL3cS/portada.jpg" height="600"></a>
 </p>
 </p>
 <p align="center">
